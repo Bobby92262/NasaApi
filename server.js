@@ -8,6 +8,8 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./nasaApiOpenapi.json');
 const nasaUrl = `https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_API_KEY}`;
 
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.get('/apod/today', async (req, res) => {
     try{
         const response = await axios.get(nasaUrl);
