@@ -1,0 +1,50 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "NASA APOD Wrapper",
+    "version": "1.0.0",
+    "description": "A public API that retrieves NASA's Astronomy Picture of the Day."
+  },
+  "paths": {
+    "/apod/today": {
+      "get": {
+        "summary": "Get today's Astronomy Picture of the Day",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "explanation": {
+                      "type": "string"
+                    },
+                    "media_type": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["date", "title", "url", "explanation"]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "NASA API error or server failure"
+          }
+        }
+      }
+    }
+  }
+}
