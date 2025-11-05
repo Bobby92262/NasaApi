@@ -15,8 +15,19 @@ app.get('/apod/today', async (req, res) => {
         const response = await axios.get(nasaUrl);
         res.json(response.data)
     } catch (error) {
-        res.status(500).json({error: 'NASA API is currently unavailable. Please try again later.' });
+        res.status(500).json({error: 'NASA API is currently unavailable. Please try again later.'});
     }
 });
+
+app.get('/apod/date', async (req, res) => {
+    const { data } = req.query;
+    try{
+        const response = await axios.get(`${nasaUrl}&date=${date}`);
+        res.json(response.data)
+    } catch (error) {
+        res.status(500).json({error: 'Failed to fetch APOD for the given date.'});
+    }
+});
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

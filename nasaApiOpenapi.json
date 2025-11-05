@@ -15,27 +15,39 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "date": {
-                      "type": "string",
-                      "format": "date"
-                    },
-                    "title": {
-                      "type": "string"
-                    },
-                    "url": {
-                      "type": "string",
-                      "format": "uri"
-                    },
-                    "explanation": {
-                      "type": "string"
-                    },
-                    "media_type": {
-                      "type": "string"
-                    }
-                  },
-                  "required": ["date", "title", "url", "explanation"]
+                  "$ref": "#/components/schemas/APOD"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "NASA API error or server failure"
+          }
+        }
+      }
+    },
+    "/apod/date": {
+      "get": {
+        "summary": "Get APOD for a specific date",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Date in YYYY-MM-DD format"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APOD"
                 }
               }
             }
@@ -46,5 +58,21 @@
         }
       }
     }
+  },
+  "components": {
+    "schemas": {
+      "APOD": {
+        "type": "object",
+        "properties": {
+          "date": { "type": "string", "format": "date" },
+          "title": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "explanation": { "type": "string" },
+          "media_type": { "type": "string" }
+        },
+        "required": ["date", "title", "url", "explanation"]
+      }
+    }
   }
 }
+
